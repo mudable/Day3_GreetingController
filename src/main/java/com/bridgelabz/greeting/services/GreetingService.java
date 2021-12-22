@@ -1,5 +1,6 @@
 package com.bridgelabz.greeting.services;
 
+import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
 import org.modelmapper.ModelMapper;
@@ -18,6 +19,7 @@ public class GreetingService implements IGreetingService {
 
 	@Autowired
 	private IGreetingRepository greetingRepository;
+
 	@Override
 	public Greeting greetingMessage() {
 		return new Greeting(counter.incrementAndGet(), String.format(template));
@@ -33,17 +35,19 @@ public class GreetingService implements IGreetingService {
 
 	@Override
 	public Greeting addGreeting(User user) {
-	String message=String.format(template, (user.toString().isEmpty())?"Hello World":user.toString());
-		return greetingRepository.save(new Greeting(counter.incrementAndGet(),message)) ;
+		String message = String.format(template, (user.toString().isEmpty()) ? "Hello World" : user.toString());
+		return greetingRepository.save(new Greeting(counter.incrementAndGet(), message));
 	}
 
 	@Override
 	public Greeting findGreetingById(long id) {
 		return greetingRepository.findById(id).get();
-		
+
 	}
-	
-	
-	
-	
+
+	@Override
+	public List<Greeting> getAllGreetings() {
+		return greetingRepository.findAll();
+	}
+
 }
