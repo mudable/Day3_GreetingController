@@ -50,4 +50,8 @@ public class GreetingService implements IGreetingService {
 		return greetingRepository.findAll();
 	}
 
+	@Override
+	public Greeting editGreeting(Greeting greeting) {
+		return greetingRepository.save(new Greeting(2, "BridgeLabz Updated..."));
+	}
 }
