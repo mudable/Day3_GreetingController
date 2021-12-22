@@ -54,4 +54,10 @@ public class GreetingService implements IGreetingService {
 	public Greeting editGreeting(Greeting greeting) {
 		return greetingRepository.save(new Greeting(2, "BridgeLabz Updated..."));
 	}
+
+	@Override
+	public String deleteMessageById(long id) {
+		greetingRepository.deleteById(id);
+		return "Data has been deleted.";
+	}
 }
