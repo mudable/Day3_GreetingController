@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bridgelabz.greeting.model.Greeting;
+import com.bridgelabz.greeting.model.User;
 import com.bridgelabz.greeting.services.IGreetingService;
 import com.bridgelabz.greeting.user.UserDto;
 
@@ -47,7 +48,7 @@ public class GreetingController {
 	 * @return={id =1 , content="hello world!}
 	 */
 	@GetMapping("greeting/service")
-	public Greeting greeting() {
+	public Greeting greetings() {
 		return greetingService.greetingMessage();
 
 	}
@@ -55,4 +56,10 @@ public class GreetingController {
      public String greetingMessage(@RequestBody UserDto userDto) {
          return greetingService.greetingMessageByName(userDto);
      }
+	 @GetMapping("/greetings")
+	 public Greeting greetingdata(@RequestParam(value="name",defaultValue="World") String name) {
+		 User user=new User();
+		 user.setFirstName(name);
+		 return greetingService.addGreeting(user);
+	 }
 }
