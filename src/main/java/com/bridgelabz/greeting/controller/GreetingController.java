@@ -22,9 +22,10 @@ public class GreetingController {
 
 	/**
 	 * curl localhost:8080/greeting
+	 * 
 	 * @return={id =1 , content="hello world!}
-	 * localhost:8080/greeting?name=Shilpa
-	 * @return= { id=2,content="hello Shilpa!
+	 *             localhost:8080/greeting?name=Shilpa @return= {
+	 *             id=2,content="hello Shilpa!
 	 */
 	@GetMapping(value = { "/greeting", "/greeting/", "/greeting/home" })
 	public Greeting greeting(@RequestParam(value = "name", defaultValue = "World") String name) {
@@ -33,6 +34,7 @@ public class GreetingController {
 
 	/**
 	 * localhost:8080/greeting/Shilpa
+	 * 
 	 * @return={id =1 , content="hello Shilpa!}
 	 */
 	@GetMapping("greeting/{name}")
@@ -45,21 +47,29 @@ public class GreetingController {
 
 	/**
 	 * localhost:8080/greeting/service
+	 * 
 	 * @return={id =1 , content="hello world!}
 	 */
 	@GetMapping("greeting/service")
 	public Greeting greetings() {
 		return greetingService.greetingMessage();
-
 	}
-	 @PostMapping("/greeting")
-     public String greetingMessage(@RequestBody UserDto userDto) {
-         return greetingService.greetingMessageByName(userDto);
-     }
-	 @GetMapping("/greetings")
-	 public Greeting greetingdata(@RequestParam(value="name",defaultValue="World") String name) {
-		 User user=new User();
-		 user.setFirstName(name);
-		 return greetingService.addGreeting(user);
-	 }
+
+	@PostMapping("/greeting")
+	public String greetingMessage(@RequestBody UserDto userDto) {
+		return greetingService.greetingMessageByName(userDto);
+	}
+/* Used add method to store on Repository.
+ * 
+ */
+	@GetMapping("/greetings")
+	public Greeting greetingdata(@RequestParam(value = "name", defaultValue = "World") String name) {
+		User user = new User();
+		user.setFirstName(name);
+		return greetingService.addGreeting(user);
+	}
+	@GetMapping("/greetingdata/{id}")
+	public Greeting findGreetingById(@PathVariable long id) {
+		return greetingService.findGreetingById(id);
+}
 }
